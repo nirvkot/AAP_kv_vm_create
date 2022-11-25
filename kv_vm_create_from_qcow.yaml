@@ -15,14 +15,6 @@
         name: vmplaytest02
         cpu_cores: 1
         memory: 2048Mi
-        disks:
-         - bootOrder: 1
-           disk:
-             bus: virtio
-           name: root-disk
-           volume:
-           - dataVolume: vmplaytest02-pvc
-             name: root-disk
         datavolumes:
           - name: vmplaytest02-pvc
             source:

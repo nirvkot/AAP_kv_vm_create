@@ -1,0 +1,41 @@
+---
+- name: Ansible Playbook 1
+  hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+    - name: Create my first VM
+      kubevirt_vm:
+        state: running
+        wait: true
+        api_key: 
+        host: 
+        validate_certs: false
+        namespace: im-acme-project01
+        name: vmplaytest02
+        cpu_cores: 1
+        memory: 2048Mi
+        disks:
+         - bootOrder: 1
+           disk:
+             bus: virtio
+           name: root-disk
+           volume:
+           - dataVolume: vmplaytest02-pvc
+             name: root-disk
+        datavolumes:
+          - name: vmplaytest02-pvc
+            source:
+              http:
+               url: http://172.30.120.154/images/rhel86.qcow2
+            pvc:
+              accessModes:
+                - ReadWriteOnce
+              storage: 20Gi
+        cloud_init_nocloud:
+          userData: |-
+            #cloud-config
+            password: 'redhat'
+            chpasswd: { expire: False }
+            ssh_authorized_keys:
+              - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCWJ4SzU+PJ1S2aLBt90foE/5

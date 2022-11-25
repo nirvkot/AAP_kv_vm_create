@@ -9,10 +9,10 @@
         host: 
         validate_certs: false
         name: testpvc
-        namespace: im-acme-project01
+        namespace: your_namespace
         size: 20Gi
         access_modes:
           - ReadWriteOnce
         cdi_source:
           http:
-            url: http://172.30.120.154/images/rhel86.qcow2
+            url: http://source_url/image.qcow2

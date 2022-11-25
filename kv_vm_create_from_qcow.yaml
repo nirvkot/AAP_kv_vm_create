@@ -8,26 +8,29 @@
       kubevirt_vm:
         state: running
         wait: true
-        api_key: 
-        host: 
+        api_key: 'put token here'
+        host: 'put API URL'
         validate_certs: false
         namespace: im-acme-project01
-        name: vmplaytest02
+        name: vmplaytest
         cpu_cores: 1
         memory: 2048Mi
-        datavolumes:
-          - name: vmplaytest02-pvc
-            source:
-              http:
-               url: http://172.30.120.154/images/rhel86.qcow2
-            pvc:
-              accessModes:
-                - ReadWriteOnce
-              storage: 20Gi
+        disks:
+          - bootOrder: 1
+            name: root-disk
+            volume:
+              persistentVolumeClaim:
+                claimName: testpvc
+              name: root-disk
+            disk:
+              bus: virtio
         cloud_init_nocloud:
           userData: |-
             #cloud-config
+            bootcmd:
+              - "sudo curl -sS --insecure 'https://sat.apps.........' | bash"
             password: 'redhat'
             chpasswd: { expire: False }
             ssh_authorized_keys:
-              - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCWJ4SzU+PJ1S2aLBt90foE/5
+              - "ssh-rsa..."
+

@@ -8,11 +8,11 @@
       kubevirt_vm:
         state: running
         wait: true
-        api_key: 'put token here'
-        host: 'put API URL'
+        api_key: 'your api token'
+        host: 'https://API URL:port'
         validate_certs: false
-        namespace: im-acme-project01
-        name: vmplaytest
+        namespace: your_namespace
+        name: vm_name
         cpu_cores: 1
         memory: 2048Mi
         disks:
@@ -28,8 +28,8 @@
           userData: |-
             #cloud-config
             bootcmd:
-              - "sudo curl -sS --insecure 'https://sat.apps.........' | bash"
-            password: 'redhat'
+              - "sudo curl -sS --insecure 'https://your_satellite_registration_command' | bash"
+            password: 'password'
             chpasswd: { expire: False }
             ssh_authorized_keys:
               - "ssh-rsa..."

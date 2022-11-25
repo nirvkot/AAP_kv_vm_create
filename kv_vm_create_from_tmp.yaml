@@ -1,0 +1,24 @@
+---
+- name: Ansible Playbook 1
+  hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+    - name: Create my first VM
+      kubevirt_vm:
+        state: running
+        api_key: "{{ kv_vm_api_token }}"
+        host: "{{ kv_vm_host }}"
+        validate_certs: false
+        namespace: im-acme-project01
+        name: vmtest01
+        cpu_cores: 1
+        memory: 1024Mi
+        template: "im-rhel86-tmp"
+        cloud_init_nocloud:
+          userData: |-
+            #cloud-config
+            password: 'redhat'
+            chpasswd: { expire: False }
+            ssh_authorized_keys:
+              - "{{ kv_vm_auth_key }}"
